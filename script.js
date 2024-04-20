@@ -1,6 +1,7 @@
-// Assuming CLIENT_ID and API_KEY are injected through a secure process during development or build time.
-const CLIENT_ID = CLIENT_ID_ENV;
-const API_KEY = API_KEY_ENV;
+const CLIENT_ID = "<your client ID>";
+const API_KEY = "<your API key>";
+
+let isUserLoggedIn = false;
 
 // Discovery doc URL for APIs used by the quickstart
 const DISCOVERY_DOC =
@@ -16,6 +17,7 @@ let gisInited = false;
 
 document.getElementById("authorize_button").style.visibility = "hidden";
 document.getElementById("signout_button").style.visibility = "hidden";
+document.getElementById("container").style.visibility = "hidden";
 
 /**
  * Callback after api.js is loaded.
@@ -67,6 +69,7 @@ function handleAuthClick() {
       throw resp;
     }
     document.getElementById("signout_button").style.visibility = "visible";
+    document.getElementById("container").style.visibility = "visible";
     document.getElementById("authorize_button").innerText = "Refresh";
     await listMajors();
   };
@@ -92,6 +95,7 @@ function handleSignoutClick() {
     document.getElementById("content").innerText = "";
     document.getElementById("authorize_button").innerText = "Authorize";
     document.getElementById("signout_button").style.visibility = "hidden";
+    document.getElementById("container").style.visibility = "hidden";
   }
 }
 
@@ -121,4 +125,32 @@ async function listMajors() {
     "Name, Major:\n"
   );
   document.getElementById("content").innerText = output;
+}
+
+/**
+ * Open CSV file
+ */
+function handleFiles(oFiles) {
+  console.log(typeof oFiles);
+  if (oFiles.length === 0) {
+    console.log("Nie wybrano pliku");
+    return;
+  }
+  const oFile = oFiles[0];
+  const oReader = new FileReader();
+
+  oReader.onload = (oEvent) => {
+    const sText = oEvent.target.result;
+    processCSV(sText);
+  };
+
+  oReader.readAsText(oFile);
+}
+/**
+ * Parse CSV data into an array
+ */
+function processCSV(sText) {
+  const aData = sText.split("\n").map((sRow) => sRow.split(","));
+  console.log("Contents of CSV file:");
+  console.table(aData);
 }
