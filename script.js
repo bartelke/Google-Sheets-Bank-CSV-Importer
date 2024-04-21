@@ -1,8 +1,6 @@
 const CLIENT_ID = "<your client ID>";
 const API_KEY = "<your API key>";
 
-let isUserLoggedIn = false;
-
 // Discovery doc URL for APIs used by the quickstart
 const DISCOVERY_DOC =
   "https://sheets.googleapis.com/$discovery/rest?version=v4";

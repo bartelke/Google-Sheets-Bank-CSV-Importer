@@ -1,7 +1,13 @@
-const sSpreadsheetID = "<your sheet ID>";
+const sSpreadsheetID = "<your spreedsheet ID>";
 
 function upload() {
-  batchUpdateValues(sSpreadsheetID, "test!A7", "RAW", values, callback);
+  batchUpdateValues(
+    sSpreadsheetID,
+    "test!Q7",
+    "USER_ENTERED",
+    aIncome,
+    callback
+  );
 }
 
 function batchUpdateValues(

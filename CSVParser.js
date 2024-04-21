@@ -1,4 +1,5 @@
 let aPayload;
+let aIncome;
 /**
  * Open CSV file
  */
@@ -14,7 +15,7 @@ function handleFiles(oFiles) {
   oReader.onload = (oEvent) => {
     const sText = oEvent.target.result;
     aPayload = processCSV(sText);
-    console.log(aPayload);
+    separate(aPayload);
   };
 
   oReader.readAsText(oFile);
@@ -45,4 +46,24 @@ function processCSV(sText) {
 
   aData.shift();
   return aData;
+}
+
+function separate(originalArray) {
+  const positiveNumberArray = [];
+  const negativeNumberArray = [];
+
+  originalArray.forEach((row) => {
+    const number = parseFloat(row[2].replace(/"/g, ""));
+    const sender = row[1].replace(/"Nazwa nadawcy : /g, "").replace(/"/g, ""); // Usuwa "Nazwa nadawcy: " i cudzysłowy
+    if (!isNaN(number) && number >= 0) {
+      // Sprawdzamy czy number jest liczbą i dodatni
+      positiveNumberArray.push([row[0], sender, number]);
+    } else {
+      negativeNumberArray.push(row);
+    }
+  });
+
+  console.log("Positive numbers array:", positiveNumberArray);
+  console.log("Negative numbers array:", negativeNumberArray);
+  aIncome = positiveNumberArray;
 }
