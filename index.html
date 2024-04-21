@@ -19,11 +19,19 @@
         onchange="handleFiles(this.files)"
       />
       <button onclick="upload()">Upload</button>
+      <br />
+      <label for="income_cell">Arkusz: </label>
+      <input type="text" id="sheet_cell" name="sheet_cell" />
+      <br />
+
       <label for="income_cell">Komórka z przychodami:</label>
       <input type="text" id="income_cell" name="income_cell" />
 
       <label for="income_cell">Komórka z wydatkami własnymi:</label>
       <input type="text" id="own_outcome_cell" name="own_outcome_cell" />
+
+      <label for="income_cell">Komórka z wydatkami wspólnymi:</label>
+      <input type="text" id="common_outcome_cell" name="common_outcome_cell" />
 
       <hr />
       <ul id="outcome_list"></ul>

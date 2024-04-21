@@ -2,6 +2,8 @@ let aPayload;
 let aIncome;
 let aOwnOutcome = [];
 let aCommonOutcome = [];
+//get only common spends values:
+let aCommonValues = [];
 /**
  * Open CSV file
  */
@@ -151,6 +153,8 @@ function moveToCommon(nIndex, oItem, oListItem) {
   const oNewListItem = document.createElement("li");
   createElement(oItem, nIndex, oNewListItem, false);
   document.getElementById("common_list").appendChild(oNewListItem);
+
+  getCommonValues();
 }
 
 /**
@@ -169,4 +173,15 @@ function moveToOwn(nIndex, oItem, oListItem) {
   const oNewListItem = document.createElement("li");
   createElement(oItem, nIndex, oNewListItem, true);
   document.getElementById("outcome_list").appendChild(oNewListItem);
+
+  getCommonValues();
+}
+
+function getCommonValues() {
+  aCommonValues = [];
+  aCommonOutcome.forEach((oElement) => {
+    aSingleArray = [];
+    aSingleArray.push(oElement[2]);
+    aCommonValues.push(aSingleArray);
+  });
 }

@@ -4,6 +4,9 @@ const API_KEY = "<your API key>";
 //default inputs values:
 document.getElementById("income_cell").value = "T7";
 document.getElementById("own_outcome_cell").value = "J7";
+document.getElementById("common_outcome_cell").value = "A7";
+document.getElementById("sheet_cell").value = "test";
+nValueSpan = 5; //shift for common expences values
 
 // Discovery doc URL for APIs used by the quickstart
 const DISCOVERY_DOC =

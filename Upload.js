@@ -1,23 +1,53 @@
-const sSpreadsheetID = "<your spreedsheet ID>";
+const sSpreadsheetID = "<your spreadsheet ID>";
 
 function upload() {
   let sIncomeCell = document.getElementById("income_cell").value;
   let sOwnOutcomeCell = document.getElementById("own_outcome_cell").value;
+  let sCommonOutcomeCell = document.getElementById("common_outcome_cell").value;
+  let sSheetCell = document.getElementById("sheet_cell").value;
 
-  console.log(`test!${sIncomeCell}`);
+  //upload income:
   batchUpdateValues(
     sSpreadsheetID,
-    `test!${sIncomeCell}`,
+    `${sSheetCell}!${sIncomeCell}`,
     "USER_ENTERED",
     aIncome,
     callback
   );
 
+  //upload own outcome:
   batchUpdateValues(
     sSpreadsheetID,
-    `test!${sOwnOutcomeCell}`,
+    `${sSheetCell}!${sOwnOutcomeCell}`,
     "USER_ENTERED",
     aOwnOutcome,
+    callback
+  );
+
+  //upload common expences:
+  batchUpdateValues(
+    sSpreadsheetID,
+    `${sSheetCell}!${sCommonOutcomeCell}`,
+    "USER_ENTERED",
+    aCommonOutcome,
+    callback
+  );
+  /**
+   * Shift range for values:
+   */
+  let sCellLetter = sCommonOutcomeCell.charAt(0);
+  let nCellDigit = parseInt(sCommonOutcomeCell.substr(1));
+
+  //shift letter:
+  let sNewLetter = String.fromCharCode(sCellLetter.charCodeAt(0) + nValueSpan);
+  let sNewCell = sNewLetter + nCellDigit;
+
+  //upload only shifted prices (common expences):
+  batchUpdateValues(
+    sSpreadsheetID,
+    `${sSheetCell}!${sNewCell}`,
+    "USER_ENTERED",
+    aCommonValues,
     callback
   );
 }
