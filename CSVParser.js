@@ -1,6 +1,7 @@
 let aPayload;
 let aIncome;
-let aOwnOutcome;
+let aOwnOutcome = [];
+let aCommonOutcome = [];
 /**
  * Open CSV file
  */
@@ -49,6 +50,9 @@ function processCSV(sText) {
   return aData;
 }
 
+/**
+ * Separate income and expences
+ */
 function separate(aOriginalData) {
   const aPositiveNumbers = [];
   const aNegativeNumbers = [];
@@ -75,42 +79,94 @@ function separate(aOriginalData) {
     item[1],
     Math.abs(item[2]),
   ]);
-  console.log(aOwnOutcome);
 
   // Add a list to the element with the id "outcome_list"
-  const outcomeList = generateList(aOwnOutcome);
-  document.getElementById("outcome_list").appendChild(outcomeList);
+  const oOwnOutcomeList = generateList(aOwnOutcome);
+  document.getElementById("outcome_list").appendChild(oOwnOutcomeList);
 }
 
-function generateList(array) {
-  const list = document.createElement("ul");
-  list.classList.add("custom-list"); // Dodaj klasę dla dodatkowych stylów
+/**
+ * Generate whole array:
+ */
+function generateList(aArray) {
+  const oList = document.createElement("ul");
+  oList.classList.add("custom-list");
 
-  array.forEach((item) => {
-    const listItem = document.createElement("li");
-
-    const itemWrapper = document.createElement("div");
-    itemWrapper.style.width = "800px"; // Ustaw szerokość diva na 1000px
-
-    const itemContent = document.createElement("span");
-    itemContent.textContent = `${item[0]} - ${item[1]}`;
-
-    const additionalInfo = document.createElement("span"); // Nowy element na trzeci element
-    additionalInfo.textContent = item[2];
-
-    const button = document.createElement("button");
-    button.textContent = "Przenieś do wydatków wspólnych";
-    button.addEventListener("click", () => {
-      console.log(item);
-    });
-
-    itemWrapper.appendChild(itemContent);
-    listItem.appendChild(itemWrapper);
-    listItem.appendChild(additionalInfo); // Dodaj trzeci element poza divem
-    listItem.appendChild(button);
-
-    list.appendChild(listItem);
+  aArray.forEach((oItem, nIndex) => {
+    createElement(oItem, nIndex, oList, true);
   });
 
-  return list;
+  return oList;
+}
+
+/**
+ * Create new element on an HTML list
+ */
+function createElement(oItem, nIndex, oList, bIsOwnOutcome) {
+  const oListItem = document.createElement("li");
+  //spans for certain list items:
+  const oItemWrapper = document.createElement("div");
+  oItemWrapper.style.width = "800px";
+
+  const oItemContent = document.createElement("span");
+  oItemContent.textContent = `${oItem[0]} ${oItem[1]}`;
+
+  const oAdditionalInfo = document.createElement("span");
+  oAdditionalInfo.textContent = oItem[2];
+
+  //button for moving data from one list to another:
+  const oButton = document.createElement("button");
+  if (bIsOwnOutcome) {
+    oButton.textContent = "Przenieś do wydatków wspólnych";
+    oButton.addEventListener("click", () => {
+      moveToCommon(nIndex, oItem, oListItem);
+    });
+  } else {
+    oButton.textContent = "Przenieś do wydatków własnych";
+    oButton.addEventListener("click", () => {
+      moveToOwn(nIndex, oItem, oListItem);
+    });
+  }
+
+  oItemWrapper.appendChild(oItemContent);
+  oListItem.appendChild(oItemWrapper);
+  oListItem.appendChild(oAdditionalInfo);
+  oListItem.appendChild(oButton);
+
+  oList.appendChild(oListItem);
+}
+/**
+ * Move expense from own to common
+ */
+function moveToCommon(nIndex, oItem, oListItem) {
+  if (aOwnOutcome.length === 1)
+    aOwnOutcome = []; //handle last element (there were some bugs)
+  else {
+    aOwnOutcome.splice(nIndex, 1);
+  }
+  oListItem.remove(); //remove item from HTML list
+  aCommonOutcome.push(oItem); //push item to common outcome
+
+  //create new HTML list item in common list:
+  const oNewListItem = document.createElement("li");
+  createElement(oItem, nIndex, oNewListItem, false);
+  document.getElementById("common_list").appendChild(oNewListItem);
+}
+
+/**
+ * Move expense from common to own
+ */
+function moveToOwn(nIndex, oItem, oListItem) {
+  if (aCommonOutcome.length === 1)
+    aCommonOutcome = []; //handle last element (there were some bugs)
+  else {
+    aCommonOutcome.splice(nIndex, 1);
+  }
+  oListItem.remove(); //remove item from HTML list
+  aOwnOutcome.push(oItem); //push item to own outcome
+
+  //create new HTML list item in own outcome list:
+  const oNewListItem = document.createElement("li");
+  createElement(oItem, nIndex, oNewListItem, true);
+  document.getElementById("outcome_list").appendChild(oNewListItem);
 }
