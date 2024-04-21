@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>Sheets API Quickstart</title>
+    <link rel="stylesheet" href="style.css" />
     <meta charset="utf-8" />
   </head>
   <body>
@@ -18,6 +19,13 @@
         onchange="handleFiles(this.files)"
       />
       <button onclick="upload()">Upload</button>
+      <label for="income_cell">Komórka z przychodami:</label>
+      <input type="text" id="income_cell" name="income_cell" />
+
+      <label for="income_cell">Komórka z wydatkami własnymi:</label>
+      <input type="text" id="own_outcome_cell" name="own_outcome_cell" />
+
+      <ul id="outcome_list"></ul>
 
       <script
         async

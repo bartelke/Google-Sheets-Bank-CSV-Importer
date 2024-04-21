@@ -1,11 +1,23 @@
 const sSpreadsheetID = "<your spreedsheet ID>";
 
 function upload() {
+  let sIncomeCell = document.getElementById("income_cell").value;
+  let sOwnOutcomeCell = document.getElementById("own_outcome_cell").value;
+
+  console.log(`test!${sIncomeCell}`);
   batchUpdateValues(
     sSpreadsheetID,
-    "test!Q7",
+    `test!${sIncomeCell}`,
     "USER_ENTERED",
     aIncome,
+    callback
+  );
+
+  batchUpdateValues(
+    sSpreadsheetID,
+    `test!${sOwnOutcomeCell}`,
+    "USER_ENTERED",
+    aOwnOutcome,
     callback
   );
 }

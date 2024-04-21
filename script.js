@@ -1,6 +1,10 @@
 const CLIENT_ID = "<your client ID>";
 const API_KEY = "<your API key>";
 
+//default inputs values:
+document.getElementById("income_cell").value = "T7";
+document.getElementById("own_outcome_cell").value = "J7";
+
 // Discovery doc URL for APIs used by the quickstart
 const DISCOVERY_DOC =
   "https://sheets.googleapis.com/$discovery/rest?version=v4";
@@ -15,7 +19,7 @@ let gisInited = false;
 
 document.getElementById("authorize_button").style.visibility = "hidden";
 document.getElementById("signout_button").style.visibility = "hidden";
-document.getElementById("container").style.visibility = "hidden";
+// document.getElementById("container").style.visibility = "hidden";
 
 /**
  * Callback after api.js is loaded.
@@ -69,7 +73,6 @@ function handleAuthClick() {
     document.getElementById("signout_button").style.visibility = "visible";
     document.getElementById("container").style.visibility = "visible";
     document.getElementById("authorize_button").innerText = "Refresh";
-    // await listMajors();
   };
 
   if (gapi.client.getToken() === null) {
@@ -99,7 +102,3 @@ function handleSignoutClick() {
 const callback = (response) => {
   console.log(response);
 };
-const values = [
-  ["wartość1", "wartość2", "wartość3"], // Dane, które chcesz wkleić
-  ["wartość4", "wartość5", "wartość6"],
-];
