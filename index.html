@@ -17,6 +17,7 @@
         accept=".csv"
         onchange="handleFiles(this.files)"
       />
+      <button onclick="upload()">Upload</button>
 
       <script
         async
@@ -31,6 +32,8 @@
         onload="gisLoaded()"
       ></script>
       <script src="script.js"></script>
+      <script src="CSVParser.js"></script>
+      <script src="Upload.js"></script>
     </div>
   </body>
 </html>

@@ -9,7 +9,7 @@ const DISCOVERY_DOC =
 
 // Authorization scopes required by the API; multiple scopes can be
 // included, separated by spaces.
-const SCOPES = "https://www.googleapis.com/auth/spreadsheets.readonly";
+const SCOPES = "https://www.googleapis.com/auth/spreadsheets";
 
 let tokenClient;
 let gapiInited = false;
@@ -71,7 +71,7 @@ function handleAuthClick() {
     document.getElementById("signout_button").style.visibility = "visible";
     document.getElementById("container").style.visibility = "visible";
     document.getElementById("authorize_button").innerText = "Refresh";
-    await listMajors();
+    // await listMajors();
   };
 
   if (gapi.client.getToken() === null) {
@@ -98,59 +98,10 @@ function handleSignoutClick() {
     document.getElementById("container").style.visibility = "hidden";
   }
 }
-
-/**
- * Print the names and majors of students in a sample spreadsheet.
- */
-async function listMajors() {
-  let response;
-  try {
-    // Fetch values from a spreadsheet
-    response = await gapi.client.sheets.spreadsheets.values.get({
-      spreadsheetId: "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms",
-      range: "Class Data!A2:E",
-    });
-  } catch (err) {
-    document.getElementById("content").innerText = err.message;
-    return;
-  }
-  const range = response.result;
-  if (!range || !range.values || range.values.length == 0) {
-    document.getElementById("content").innerText = "No values found.";
-    return;
-  }
-  // Flatten to string to display
-  const output = range.values.reduce(
-    (str, row) => `${str}${row[0]}, ${row[4]}\n`,
-    "Name, Major:\n"
-  );
-  document.getElementById("content").innerText = output;
-}
-
-/**
- * Open CSV file
- */
-function handleFiles(oFiles) {
-  console.log(typeof oFiles);
-  if (oFiles.length === 0) {
-    console.log("Nie wybrano pliku");
-    return;
-  }
-  const oFile = oFiles[0];
-  const oReader = new FileReader();
-
-  oReader.onload = (oEvent) => {
-    const sText = oEvent.target.result;
-    processCSV(sText);
-  };
-
-  oReader.readAsText(oFile);
-}
-/**
- * Parse CSV data into an array
- */
-function processCSV(sText) {
-  const aData = sText.split("\n").map((sRow) => sRow.split(","));
-  console.log("Contents of CSV file:");
-  console.table(aData);
-}
+const callback = (response) => {
+  console.log(response);
+};
+const values = [
+  ["wartość1", "wartość2", "wartość3"], // Dane, które chcesz wkleić
+  ["wartość4", "wartość5", "wartość6"],
+];
