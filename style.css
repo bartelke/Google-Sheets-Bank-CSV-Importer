@@ -1,0 +1,15 @@
+/* Nowe style dla pojedynczego wiersza */
+li {
+  display: flex; /* Użyj flexbox do zarządzania układem wiersza */
+  align-items: center; /* Wyśrodkuj elementy w pionie */
+}
+
+span {
+  width: 100px; /* Ustaw szerokość tekstu na 1000px */
+  padding: 5px; /* Dodaj odstępy wokół tekstu */
+}
+
+button {
+  width: 200px; /* Ustaw stałą szerokość przycisku */
+  margin-left: 10px; /* Dodaj odstęp od lewej strony przycisku */
+}
