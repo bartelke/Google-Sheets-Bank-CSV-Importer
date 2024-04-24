@@ -4,6 +4,8 @@ let aOwnOutcome = [];
 let aCommonOutcome = [];
 //get only common spends values:
 let aCommonValues = [];
+let bIsING;
+
 /**
  * Open CSV file
  */
@@ -18,7 +20,16 @@ function handleFiles(oFiles) {
 
   oReader.onload = (oEvent) => {
     const sText = oEvent.target.result;
-    aPayload = processCSV(sText);
+    const sFirst100 = sText.slice(0, 100);
+
+    if (sFirst100.includes("ING")) {
+      bIsING = true;
+      aPayload = INGconverter(sText);
+      console.log(aPayload);
+    } else {
+      bIsING = false;
+      aPayload = processCSV(sText);
+    }
     separate(aPayload);
   };
 
@@ -60,16 +71,28 @@ function separate(aOriginalData) {
   const aNegativeNumbers = [];
 
   aOriginalData.forEach((oRow) => {
-    const nValue = parseFloat(oRow[2].replace(/"/g, ""));
+    let nValue;
+    let sFormatedDate;
+
+    if (!bIsING) {
+      nValue = parseFloat(oRow[2].replace(/"/g, ""));
+
+      //convert date to DD.MM.YYYY format
+      const [sYear, sMonth, sDay] = oRow[0].replace(/"/g, "").split("-");
+      sFormatedDate = `${sDay}.${sMonth}.${sYear}`;
+    } else {
+      nValue = oRow[2];
+      sFormatedDate = oRow[0];
+    }
     const sOperationTitle = oRow[1]
       .replace(/"Nazwa nadawcy : /g, "")
       .replace(/"/g, ""); //remove "Nazwa nadawcy :"
     if (!isNaN(nValue)) {
       // Separate positive and negative numbers
       if (nValue >= 0) {
-        aPositiveNumbers.push([oRow[0], sOperationTitle, nValue]);
+        aPositiveNumbers.push([sFormatedDate, sOperationTitle, nValue]);
       } else {
-        aNegativeNumbers.push([oRow[0], sOperationTitle, nValue]);
+        aNegativeNumbers.push([sFormatedDate, sOperationTitle, nValue]);
       }
     }
   });
