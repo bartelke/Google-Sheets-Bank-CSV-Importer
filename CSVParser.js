@@ -4,6 +4,8 @@ let aOwnOutcome = [];
 let aCommonOutcome = [];
 //get only common spends values:
 let aCommonValues = [];
+let bIsING;
+
 /**
  * Open CSV file
  */
@@ -18,7 +20,16 @@ function handleFiles(oFiles) {
 
   oReader.onload = (oEvent) => {
     const sText = oEvent.target.result;
-    aPayload = processCSV(sText);
+    const sFirst100 = sText.slice(0, 100);
+
+    if (sFirst100.includes("ING")) {
+      bIsING = true;
+      aPayload = INGconverter(sText);
+      console.log(aPayload);
+    } else {
+      bIsING = false;
+      aPayload = processCSV(sText);
+    }
     separate(aPayload);
   };
 
@@ -60,7 +71,12 @@ function separate(aOriginalData) {
   const aNegativeNumbers = [];
 
   aOriginalData.forEach((oRow) => {
-    const nValue = parseFloat(oRow[2].replace(/"/g, ""));
+    let nValue;
+    if (!bIsING) {
+      nValue = parseFloat(oRow[2].replace(/"/g, ""));
+    } else {
+      nValue = oRow[2];
+    }
     const sOperationTitle = oRow[1]
       .replace(/"Nazwa nadawcy : /g, "")
       .replace(/"/g, ""); //remove "Nazwa nadawcy :"
