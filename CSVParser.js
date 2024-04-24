@@ -72,10 +72,17 @@ function separate(aOriginalData) {
 
   aOriginalData.forEach((oRow) => {
     let nValue;
+    let sFormatedDate;
+
     if (!bIsING) {
       nValue = parseFloat(oRow[2].replace(/"/g, ""));
+
+      //convert date to DD.MM.YYYY format
+      const [sYear, sMonth, sDay] = oRow[0].replace(/"/g, "").split("-");
+      sFormatedDate = `${sDay}.${sMonth}.${sYear}`;
     } else {
       nValue = oRow[2];
+      sFormatedDate = oRow[0];
     }
     const sOperationTitle = oRow[1]
       .replace(/"Nazwa nadawcy : /g, "")
@@ -83,9 +90,9 @@ function separate(aOriginalData) {
     if (!isNaN(nValue)) {
       // Separate positive and negative numbers
       if (nValue >= 0) {
-        aPositiveNumbers.push([oRow[0], sOperationTitle, nValue]);
+        aPositiveNumbers.push([sFormatedDate, sOperationTitle, nValue]);
       } else {
-        aNegativeNumbers.push([oRow[0], sOperationTitle, nValue]);
+        aNegativeNumbers.push([sFormatedDate, sOperationTitle, nValue]);
       }
     }
   });
