@@ -13,3 +13,16 @@ button {
   width: 200px; /* Ustaw stałą szerokość przycisku */
   margin-left: 10px; /* Dodaj odstęp od lewej strony przycisku */
 }
+
+.hello {
+  text-align: center;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+/* #authorize_button {
+  
+} */

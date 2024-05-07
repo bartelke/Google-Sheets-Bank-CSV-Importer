@@ -1,4 +1,4 @@
-const sSpreadsheetID = "<your spreadsheet ID>";
+const sSpreadsheetID = "<your spreetsheet ID>";
 
 function upload() {
   let sIncomeCell = document.getElementById("income_cell").value;
