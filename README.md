@@ -36,7 +36,7 @@ You don't have to include headers with column title in your CSV file.
 
 First, you need to set up the project, obtain an API key, assign scope, and grant access to specific users on Google Cloud following the official guide: [https://developers.google.com/workspace/guides/configure-oauth-consent?hl=pl](https://developers.google.com/workspace/guides/configure-oauth-consent?hl=pl)
 
-Next, in the _script.js_ and _Upload.js_ files, you need to provide the API key, client ID, and spreadsheet ID. Additionally, in the script.js file, you can set default values for certain parameters such as default cell values or the name of the spreadsheet.
+Next, in the _main.js_ and _Upload.js_ files, you need to provide the API key, client ID, and spreadsheet ID. Additionally, in the main.js file, you can set default values for certain parameters such as default cell values or the name of the spreadsheet.
 
 Run the program like a regular web page locally (_index.html_ file). In the future, I may create a desktop application.
 

@@ -10,7 +10,6 @@ let bIsING;
  * Open CSV file
  */
 function handleFiles(oFiles) {
-  console.log(typeof oFiles);
   if (oFiles.length === 0) {
     console.log("Nie wybrano pliku");
     return;
@@ -25,7 +24,6 @@ function handleFiles(oFiles) {
     if (sFirst100.includes("ING")) {
       bIsING = true;
       aPayload = INGconverter(sText);
-      console.log(aPayload);
     } else {
       bIsING = false;
       aPayload = processCSV(sText);
