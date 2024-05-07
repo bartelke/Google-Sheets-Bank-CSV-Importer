@@ -112,7 +112,7 @@ function separate(aOriginalData) {
  * Generate whole array:
  */
 function generateList(aArray) {
-  const oList = document.createElement("ul");
+  const oList = document.getElementById("outcome_list");
   oList.classList.add("custom-list");
 
   aArray.forEach((oItem, nIndex) => {
@@ -127,18 +127,32 @@ function generateList(aArray) {
  */
 function createElement(oItem, nIndex, oList, bIsOwnOutcome) {
   const oListItem = document.createElement("li");
-  //spans for certain list items:
+
   const oItemWrapper = document.createElement("div");
   oItemWrapper.style.width = "800px";
 
   const oItemContent = document.createElement("span");
-  oItemContent.textContent = `${oItem[0]} ${oItem[1]}`;
+  const boldText = document.createElement("strong");
+  boldText.textContent = oItem[0];
+
+  oItemContent.appendChild(boldText);
+  oItemContent.appendChild(document.createTextNode(` ${oItem[1]}`));
 
   const oAdditionalInfo = document.createElement("span");
-  oAdditionalInfo.textContent = oItem[2];
+  oAdditionalInfo.textContent = `${oItem[2]} zł`;
+
+  oItemWrapper.appendChild(oItemContent);
+  oItemWrapper.appendChild(oAdditionalInfo);
+
+  oListItem.appendChild(oItemWrapper);
 
   //button for moving data from one list to another:
   const oButton = document.createElement("button");
+  oButton.classList.add("btn", "btn-outline-secondary");
+  oButton.style.width = "300px";
+  oButton.style.marginTop = "0.25em";
+  oButton.style.marginBottom = "0.25em";
+
   if (bIsOwnOutcome) {
     oButton.textContent = "Przenieś do wydatków wspólnych";
     oButton.addEventListener("click", () => {
@@ -155,6 +169,12 @@ function createElement(oItem, nIndex, oList, bIsOwnOutcome) {
   oListItem.appendChild(oItemWrapper);
   oListItem.appendChild(oAdditionalInfo);
   oListItem.appendChild(oButton);
+
+  if (nIndex % 2 == 0) {
+    oListItem.style.backgroundColor = "#bdcdd6";
+  } else {
+    oListItem.style.backgroundColor = "white";
+  }
 
   oList.appendChild(oListItem);
 }
@@ -173,6 +193,7 @@ function moveToCommon(nIndex, oItem, oListItem) {
   //create new HTML list item in common list:
   const oNewListItem = document.createElement("li");
   createElement(oItem, nIndex, oNewListItem, false);
+
   document.getElementById("common_list").appendChild(oNewListItem);
 
   getCommonValues();

@@ -1,4 +1,4 @@
-const CLIENT_ID = "<your client ID>";
+const CLIENT_ID = "your client ID";
 const API_KEY = "<your API key>";
 
 //default inputs values:
@@ -20,7 +20,7 @@ let tokenClient;
 let gapiInited = false;
 let gisInited = false;
 
-document.getElementById("authorize_button").style.visibility = "hidden";
+document.getElementById("authorize_button").style.visibility = "visible";
 document.getElementById("signout_button").style.visibility = "hidden";
 document.getElementById("container").style.visibility = "hidden";
 
@@ -40,7 +40,7 @@ async function initializeGapiClient() {
     discoveryDocs: [DISCOVERY_DOC],
   });
   gapiInited = true;
-  maybeEnableButtons();
+  // maybeEnableButtons();
 }
 
 /**
@@ -53,16 +53,6 @@ function gisLoaded() {
     callback: "", // Callback defined later
   });
   gisInited = true;
-  maybeEnableButtons();
-}
-
-/**
- * Enables user interaction after all libraries are loaded.
- */
-function maybeEnableButtons() {
-  if (gapiInited && gisInited) {
-    document.getElementById("authorize_button").style.visibility = "visible";
-  }
 }
 
 /**
@@ -75,7 +65,8 @@ function handleAuthClick() {
     }
     document.getElementById("signout_button").style.visibility = "visible";
     document.getElementById("container").style.visibility = "visible";
-    document.getElementById("authorize_button").innerText = "Refresh";
+    document.getElementById("helloSection").style.visibility = "hidden";
+    document.getElementById("authorize_button").style.visibility = "hidden";
   };
 
   if (gapi.client.getToken() === null) {
@@ -97,9 +88,10 @@ function handleSignoutClick() {
     google.accounts.oauth2.revoke(token.access_token);
     gapi.client.setToken("");
     document.getElementById("content").innerText = "";
-    document.getElementById("authorize_button").innerText = "Authorize";
     document.getElementById("signout_button").style.visibility = "hidden";
     document.getElementById("container").style.visibility = "hidden";
+    document.getElementById("helloSection").style.visibility = "visible";
+    document.getElementById("authorize_button").style.visibility = "visible";
   }
 }
 const callback = (response) => {
