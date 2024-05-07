@@ -112,7 +112,7 @@ function separate(aOriginalData) {
  * Generate whole array:
  */
 function generateList(aArray) {
-  const oList = document.createElement("ul");
+  const oList = document.getElementById("outcome_list");
   oList.classList.add("custom-list");
 
   aArray.forEach((oItem, nIndex) => {
@@ -150,7 +150,8 @@ function createElement(oItem, nIndex, oList, bIsOwnOutcome) {
   const oButton = document.createElement("button");
   oButton.classList.add("btn", "btn-outline-secondary");
   oButton.style.width = "300px";
-  oButton.style.marginTop = "0.5em";
+  oButton.style.marginTop = "0.25em";
+  oButton.style.marginBottom = "0.25em";
 
   if (bIsOwnOutcome) {
     oButton.textContent = "Przenieś do wydatków wspólnych";
@@ -169,6 +170,12 @@ function createElement(oItem, nIndex, oList, bIsOwnOutcome) {
   oListItem.appendChild(oAdditionalInfo);
   oListItem.appendChild(oButton);
 
+  if (nIndex % 2 == 0) {
+    oListItem.style.backgroundColor = "#bdcdd6";
+  } else {
+    oListItem.style.backgroundColor = "white";
+  }
+
   oList.appendChild(oListItem);
 }
 /**
@@ -186,6 +193,7 @@ function moveToCommon(nIndex, oItem, oListItem) {
   //create new HTML list item in common list:
   const oNewListItem = document.createElement("li");
   createElement(oItem, nIndex, oNewListItem, false);
+
   document.getElementById("common_list").appendChild(oNewListItem);
 
   getCommonValues();

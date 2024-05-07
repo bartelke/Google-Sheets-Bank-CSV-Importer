@@ -1,5 +1,5 @@
 const CLIENT_ID = "your client ID";
-const API_KEY = "your API key";
+const API_KEY = "<your API key>";
 
 //default inputs values:
 document.getElementById("income_cell").value = "T7";

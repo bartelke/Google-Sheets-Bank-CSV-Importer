@@ -1,25 +1,29 @@
-/* Nowe style dla pojedynczego wiersza */
 li {
-  display: flex; /* Użyj flexbox do zarządzania układem wiersza */
-  align-items: center; /* Wyśrodkuj elementy w pionie */
+  display: flex;
+  align-items: center;
+  width: 1250px;
 }
 
 li:nth-child(odd) {
-  background-color: #bdcdd6; /* Kolor czerwony dla nieparzystych elementów */
+  background-color: #bdcdd6;
 }
 
 span {
-  width: 100px; /* Ustaw szerokość tekstu na 1000px */
-  padding: 5px; /* Dodaj odstępy wokół tekstu */
+  width: 100px;
+  padding: 5px;
 }
 
 button {
-  width: 200px; /* Ustaw stałą szerokość przycisku */
-  margin-left: 10px; /* Dodaj odstęp od lewej strony przycisku */
+  width: 200px;
+  margin-left: 10px;
 }
 
 input {
   padding: 0.25em;
+}
+
+h4 {
+  margin-left: 1.5em;
 }
 
 .hello {
@@ -41,16 +45,10 @@ input {
 .settings {
   background-color: #93bfcf;
   padding: 0.7em;
+  box-shadow: 4px 4px 5px #888888;
 }
 
 label {
   margin-top: 1.5em;
   margin-right: 0.7em;
 }
-
-/* .listBtn{
-
-} */
-/* #authorize_button {
-  
-} */
