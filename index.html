@@ -37,36 +37,47 @@
     </div>
 
     <div id="container">
-      <button id="signout_button" onclick="handleSignoutClick()">
-        Sign Out
-      </button>
-      <br />
-      <input
-        type="file"
-        id="csvFileInput"
-        accept=".csv"
-        onchange="handleFiles(this.files)"
-      />
-      <button onclick="upload()">Upload</button>
-      <br />
-      <label for="income_cell">Arkusz: </label>
-      <input type="text" id="sheet_cell" name="sheet_cell" />
-      <br />
+      <div class="toolheader">
+        <button
+          id="signout_button"
+          class="btn btn-light"
+          onclick="handleSignoutClick()"
+        >
+          Wyloguj
+        </button>
+      </div>
 
-      <label for="income_cell">Komórka z przychodami:</label>
-      <input type="text" id="income_cell" name="income_cell" />
+      <div class="settings">
+        <input
+          type="file"
+          id="csvFileInput"
+          accept=".csv"
+          onchange="handleFiles(this.files)"
+        />
+        <button class="btn btn-success" onclick="upload()">Prześlij</button>
+        <br />
+        <label for="income_cell">Arkusz: </label>
+        <input type="text" id="sheet_cell" name="sheet_cell" />
+        <br />
 
-      <label for="income_cell">Komórka z wydatkami własnymi:</label>
-      <input type="text" id="own_outcome_cell" name="own_outcome_cell" />
+        <label for="income_cell">Komórka z przychodami:</label>
+        <input type="text" id="income_cell" name="income_cell" />
 
-      <label for="income_cell">Komórka z wydatkami wspólnymi:</label>
-      <input type="text" id="common_outcome_cell" name="common_outcome_cell" />
+        <label for="income_cell">Komórka z wydatkami własnymi:</label>
+        <input type="text" id="own_outcome_cell" name="own_outcome_cell" />
+
+        <label for="income_cell">Komórka z wydatkami wspólnymi:</label>
+        <input
+          type="text"
+          id="common_outcome_cell"
+          name="common_outcome_cell"
+        />
+      </div>
 
       <hr />
       <ul id="outcome_list"></ul>
       <hr />
       <ul id="common_list"></ul>
-
       <script
         async
         defer

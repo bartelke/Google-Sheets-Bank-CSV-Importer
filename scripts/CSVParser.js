@@ -127,18 +127,31 @@ function generateList(aArray) {
  */
 function createElement(oItem, nIndex, oList, bIsOwnOutcome) {
   const oListItem = document.createElement("li");
-  //spans for certain list items:
+
   const oItemWrapper = document.createElement("div");
   oItemWrapper.style.width = "800px";
 
   const oItemContent = document.createElement("span");
-  oItemContent.textContent = `${oItem[0]} ${oItem[1]}`;
+  const boldText = document.createElement("strong");
+  boldText.textContent = oItem[0];
+
+  oItemContent.appendChild(boldText);
+  oItemContent.appendChild(document.createTextNode(` ${oItem[1]}`));
 
   const oAdditionalInfo = document.createElement("span");
-  oAdditionalInfo.textContent = oItem[2];
+  oAdditionalInfo.textContent = `${oItem[2]} zł`;
+
+  oItemWrapper.appendChild(oItemContent);
+  oItemWrapper.appendChild(oAdditionalInfo);
+
+  oListItem.appendChild(oItemWrapper);
 
   //button for moving data from one list to another:
   const oButton = document.createElement("button");
+  oButton.classList.add("btn", "btn-outline-secondary");
+  oButton.style.width = "300px";
+  oButton.style.marginTop = "0.5em";
+
   if (bIsOwnOutcome) {
     oButton.textContent = "Przenieś do wydatków wspólnych";
     oButton.addEventListener("click", () => {

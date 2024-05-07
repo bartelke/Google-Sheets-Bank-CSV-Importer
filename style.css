@@ -4,6 +4,10 @@ li {
   align-items: center; /* Wyśrodkuj elementy w pionie */
 }
 
+li:nth-child(odd) {
+  background-color: #bdcdd6; /* Kolor czerwony dla nieparzystych elementów */
+}
+
 span {
   width: 100px; /* Ustaw szerokość tekstu na 1000px */
   padding: 5px; /* Dodaj odstępy wokół tekstu */
@@ -12,6 +16,10 @@ span {
 button {
   width: 200px; /* Ustaw stałą szerokość przycisku */
   margin-left: 10px; /* Dodaj odstęp od lewej strony przycisku */
+}
+
+input {
+  padding: 0.25em;
 }
 
 .hello {
@@ -23,6 +31,26 @@ button {
   transform: translate(-50%, -50%);
 }
 
+.toolheader {
+  background-color: #6096b4;
+  padding: 0.7em;
+  display: flex;
+  justify-content: end;
+}
+
+.settings {
+  background-color: #93bfcf;
+  padding: 0.7em;
+}
+
+label {
+  margin-top: 1.5em;
+  margin-right: 0.7em;
+}
+
+/* .listBtn{
+
+} */
 /* #authorize_button {
   
 } */
